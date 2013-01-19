@@ -1,0 +1,72 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 01/19/2013 23:33:24
+-- Generated from EDMX file: C:\Users\srgrn\documents\visual studio 2010\Projects\BlackJackWeb\BlackJackDB\Model1.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [User];
+GO
+    DROP TABLE [Game];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'User'
+CREATE TABLE [User] (
+    [ID] int  NOT NULL,
+    [username] nvarchar(4000)  NOT NULL,
+    [password] nvarchar(4000)  NOT NULL,
+    [money] int  NOT NULL,
+    [numOfGames] int  NULL
+);
+GO
+
+-- Creating table 'Game'
+CREATE TABLE [Game] (
+    [ID] int  NOT NULL,
+    [IP] nvarchar(4000)  NOT NULL,
+    [FirstUser] nvarchar(4000)  NOT NULL,
+    [NumOfUsers] int  NOT NULL,
+    [SecondUser] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [ID] in table 'User'
+ALTER TABLE [User]
+ADD CONSTRAINT [PK_User]
+    PRIMARY KEY ([ID] );
+GO
+
+-- Creating primary key on [ID] in table 'Game'
+ALTER TABLE [Game]
+ADD CONSTRAINT [PK_Game]
+    PRIMARY KEY ([ID] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------
