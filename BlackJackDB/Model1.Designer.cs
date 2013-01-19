@@ -141,15 +141,13 @@ namespace BlackJackDB
         /// <param name="iP">Initial value of the IP property.</param>
         /// <param name="firstUser">Initial value of the FirstUser property.</param>
         /// <param name="numOfUsers">Initial value of the NumOfUsers property.</param>
-        /// <param name="secondUser">Initial value of the SecondUser property.</param>
-        public static Game CreateGame(global::System.Int32 id, global::System.String iP, global::System.String firstUser, global::System.Int32 numOfUsers, global::System.String secondUser)
+        public static Game CreateGame(global::System.Int32 id, global::System.String iP, global::System.String firstUser, global::System.Int32 numOfUsers)
         {
             Game game = new Game();
             game.ID = id;
             game.IP = iP;
             game.FirstUser = firstUser;
             game.NumOfUsers = numOfUsers;
-            game.SecondUser = secondUser;
             return game;
         }
 
@@ -258,7 +256,7 @@ namespace BlackJackDB
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String SecondUser
         {
@@ -270,7 +268,7 @@ namespace BlackJackDB
             {
                 OnSecondUserChanging(value);
                 ReportPropertyChanging("SecondUser");
-                _SecondUser = StructuralObject.SetValidValue(value, false);
+                _SecondUser = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("SecondUser");
                 OnSecondUserChanged();
             }

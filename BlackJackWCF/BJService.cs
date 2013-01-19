@@ -21,14 +21,14 @@ namespace BlackJackWCF
                 user.ID = u.ID;
                 user.Username = u.username;
                 user.money = u.money;
-                user.numOfGames = u.numOfGames;
+                user.numOfGames = (int)u.numOfGames; // somehow this became in? instead of int
                 return user;
             }
             return null ;
         }
         public bool logout(UserWcf user)
         {
-            RemoveGame(user);
+            RemoveGameByUser(user);
             updateUser(user);
             // other cleanups can come here
             return true;
@@ -44,15 +44,16 @@ namespace BlackJackWCF
                 dal.UpdateDB(dbUser);
                 return true; // again no exception handling
             }
-            return false; // should handle exptions better;
+            return false; // should handle exception better;
         }
-        GameWcf addGame(String IP, UserWcf user)
+        public GameWcf addGame(String IP, UserWcf user)
         {
             DAL dal = new DAL();
             Game game = dal.AddGame(IP, user.Username);
+            return gameToWCF(game);
 
         }
-        bool RemoveGame(UserWcf user) 
+        public bool RemoveGameByUser(UserWcf user) 
         {
             DAL dal = new DAL();
             User dbUser = dal.GetUser(user.ID);
@@ -67,7 +68,7 @@ namespace BlackJackWCF
             }
             return false;
         }
-        public bool RemoveGame(String IP)
+        public bool RemoveGameByIP(String IP)
         {
             DAL dal = new DAL();
             Game game = dal.GetGame(IP);
@@ -78,6 +79,25 @@ namespace BlackJackWCF
                 }
             return false;
         }
+        public GameWcf[] GetGames()
+        {
+
+            DAL dal = new DAL();
+            List<GameWcf> ret = new List<GameWcf>();
+            foreach (Game g in dal.GetGames())
+            {
+                ret.Add(gameToWCF(g));
+            }
+            return ret.ToArray();
+        }
+
+
+
+        /// <summary>
+        /// convert a Game Entity object to a WCF Game object
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
         private GameWcf gameToWCF(Game game){
             GameWcf ret = new GameWcf();
             ret.ID = game.ID;
@@ -85,6 +105,24 @@ namespace BlackJackWCF
             ret.numOfPlayers = game.NumOfUsers;
             ret.FirstUser = game.FirstUser;
             ret.SecondUser = game.SecondUser;
+            return ret;
         }
+        
+        /// <summary>
+        /// Convert a WCF Game object into a Game Entity object
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        private Game WCFToGame(GameWcf game)
+        {
+            Game ret = new Game();
+            ret.ID = game.ID;
+            ret.IP = game.IP;
+            ret.NumOfUsers = game.numOfPlayers;
+            ret.FirstUser = game.FirstUser;
+            ret.SecondUser = game.SecondUser;
+            return ret;
+        }
+
     }
 }

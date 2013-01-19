@@ -21,9 +21,9 @@ namespace BlackJackWCF
         [OperationContract]
         GameWcf addGame(String IP,UserWcf user);
         [OperationContract]
-        bool RemoveGame(UserWcf user);
+        bool RemoveGameByUser(UserWcf user);
         [OperationContract]
-        bool RemoveGame(String IP);
+        bool RemoveGameByIP(String IP);
         [OperationContract]
         GameWcf[] GetGames();
         
@@ -40,7 +40,7 @@ namespace BlackJackWCF
         [DataMember]
         public int money { get; set; }
         [DataMember]
-        public string numOfGames {get; set; }
+        public int numOfGames {get; set; }
     }
     [DataContract]
     public class GameWcf

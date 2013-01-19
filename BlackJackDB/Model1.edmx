@@ -27,7 +27,7 @@
     <Property Name="IP" Type="nvarchar" Nullable="false" />
     <Property Name="FirstUser" Type="nvarchar" Nullable="false" />
     <Property Name="NumOfUsers" Type="int" Nullable="false" />
-    <Property Name="SecondUser" Type="nvarchar" Nullable="false" />
+    <Property Name="SecondUser" Type="nvarchar" Nullable="true" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -55,7 +55,7 @@
           <Property Type="String" Name="IP" Nullable="false" />
           <Property Type="String" Name="FirstUser" Nullable="false" />
           <Property Type="Int32" Name="NumOfUsers" Nullable="false" />
-          <Property Type="String" Name="SecondUser" Nullable="false" />
+          <Property Type="String" Name="SecondUser" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

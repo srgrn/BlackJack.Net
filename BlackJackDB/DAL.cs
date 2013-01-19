@@ -178,7 +178,7 @@ namespace BlackJackDB
                     maxid += 1;
                 }
 
-                Game newgame = Game.CreateGame(maxid, IP, FirstUser,1,null); // not very cuncurrent and should not be used but the DB is limiting
+                Game newgame = Game.CreateGame(maxid,IP,FirstUser,1); // not very cuncurrent and should not be used but the DB is limiting
                 ctx.AddToGame(newgame);
                 ctx.SaveChanges();
                 return newgame;
@@ -268,6 +268,7 @@ namespace BlackJackDB
             {
                 ctx.Game.Attach(game);
                 ctx.DeleteObject(game);
+                ctx.SaveChanges();
             }
         }
         /// <summary>

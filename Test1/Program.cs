@@ -12,15 +12,15 @@ namespace Test1
             DAL conn = new DAL();
             
             Console.WriteLine("starting tests:");
-            testConn(conn);
-            conn.AddUser("john2", "pass", 1000);
-            conn.AddUser("john", "pass", 1000);
-            testConn(conn);
+            //testConn(conn);
+            //conn.AddUser("john2", "pass", 1000);
+            //conn.AddUser("john", "pass", 1000);
+            //testConn(conn);
             Game g = conn.GetGame("153");
             User u = conn.GetUser("john");
             u.money = 5000;
             Console.WriteLine("lucky users is  ID:" + u.ID + " username:" + u.username + " password:" + u.password + " money:" + u.money);
-            conn.UpdateDB(u);
+            //conn.UpdateDB(u);
             testConn(conn);
             Console.WriteLine("delete tests");
             

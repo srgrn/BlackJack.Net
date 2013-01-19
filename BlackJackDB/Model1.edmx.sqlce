@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 01/19/2013 23:33:24
+-- Date Created: 01/20/2013 00:11:34
 -- Generated from EDMX file: C:\Users\srgrn\documents\visual studio 2010\Projects\BlackJackWeb\BlackJackDB\Model1.edmx
 -- --------------------------------------------------
 
@@ -43,7 +43,7 @@ CREATE TABLE [Game] (
     [IP] nvarchar(4000)  NOT NULL,
     [FirstUser] nvarchar(4000)  NOT NULL,
     [NumOfUsers] int  NOT NULL,
-    [SecondUser] nvarchar(4000)  NOT NULL
+    [SecondUser] nvarchar(4000)  NULL
 );
 GO
 
