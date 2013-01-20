@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackWeb", "BlackJackWeb\BlackJackWeb.csproj", "{9BD0EC6F-FAF7-43DD-B9BA-D65D96E6399F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{784D518E-4793-44D8-8227-919818AD0A53} = {784D518E-4793-44D8-8227-919818AD0A53}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackDB", "BlackJackDB\BlackJackDB.csproj", "{2616AEA5-82E5-4C9A-AD3C-6FAB2F1B8F8F}"
 EndProject
