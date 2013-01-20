@@ -190,7 +190,7 @@ namespace BlackJackDB
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         /// <param name="money" value="1000">Starting Money</param>
-        public User AddUser(string username, string password, int money=1000)
+        public User AddUser(string username, string password, int money=1000,bool isAdmin=false)
         {
 
             using (BlackJackDataEntities ctx = new BlackJackDataEntities())
@@ -202,7 +202,7 @@ namespace BlackJackDB
                     maxid += 1;
                 }
                 
-                User newuser = User.CreateUser(maxid,username,password,money); // not very cuncurrent and should not be used but the DB is limiting
+                User newuser = User.CreateUser(maxid,username,password,money,isAdmin); // not very cuncurrent and should not be used but the DB is limiting
                 ctx.AddToUser(newuser);
                 ctx.SaveChanges();
                 return newuser;

@@ -10,16 +10,7 @@
 namespace BlackJackWeb {
     
     
-    public partial class Default {
-        
-        /// <summary>
-        /// lbl_txtlogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_txtlogin;
+    public partial class UserPage {
         
         /// <summary>
         /// txt_username control.
@@ -31,39 +22,48 @@ namespace BlackJackWeb {
         protected global::System.Web.UI.WebControls.TextBox txt_username;
         
         /// <summary>
-        /// lbl_txtPassword control.
+        /// txt_money control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_txtPassword;
+        protected global::System.Web.UI.WebControls.TextBox txt_money;
         
         /// <summary>
-        /// txt_password control.
+        /// txt_num_of_games control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_password;
+        protected global::System.Web.UI.WebControls.TextBox txt_num_of_games;
         
         /// <summary>
-        /// Submit control.
+        /// lbl_Admin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Submit;
+        protected global::System.Web.UI.WebControls.Label lbl_Admin;
         
         /// <summary>
-        /// lbl_warning control.
+        /// chk_admin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_warning;
+        protected global::System.Web.UI.WebControls.CheckBox chk_admin;
+        
+        /// <summary>
+        /// submit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button submit;
     }
 }

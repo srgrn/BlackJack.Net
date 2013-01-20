@@ -21,7 +21,9 @@ namespace BlackJackWCF
                 user.ID = u.ID;
                 user.Username = u.username;
                 user.money = u.money;
-                user.numOfGames = (int)u.numOfGames; // somehow this became in? instead of int
+                if(u.numOfGames != null)
+                    user.numOfGames = (int)u.numOfGames; // somehow this became in? instead of int
+                user.isAdmin = u.isAdmin;
                 return user;
             }
             return null ;
@@ -90,9 +92,44 @@ namespace BlackJackWCF
             }
             return ret.ToArray();
         }
+        public UserWcf getUser(string username)
+        {
+            DAL dal = new DAL();
+            User user = dal.GetUser(username);
+            if (user != null)
+                return userToWCF(user);
+            return null;
+        }
+        /// <summary>
+        /// Creating a new user in DB 
+        /// not very secure
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool addUser(UserWcf user,string password)
+        {
+            DAL dal = new DAL();
+            dal.AddUser(user.Username, password);
+            return true;
+        }
 
-
-
+        /// <summary>
+        /// Convert a user entity to UserWCF 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private UserWcf userToWCF(User user)
+        {
+            UserWcf ret = new UserWcf();
+            ret.ID = user.ID;
+            ret.Username = user.username;
+            ret.money = user.money;
+            if(user.numOfGames != null)
+                ret.numOfGames = (int)user.numOfGames;
+            ret.isAdmin = user.isAdmin;
+            return ret;
+        }
         /// <summary>
         /// convert a Game Entity object to a WCF Game object
         /// </summary>

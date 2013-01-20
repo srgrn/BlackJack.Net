@@ -29,6 +29,9 @@ namespace BlackJackWeb.BJServiceRef {
         private string UsernameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool isAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int moneyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -66,6 +69,19 @@ namespace BlackJackWeb.BJServiceRef {
                 if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
                     this.UsernameField = value;
                     this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool isAdmin {
+            get {
+                return this.isAdminField;
+            }
+            set {
+                if ((this.isAdminField.Equals(value) != true)) {
+                    this.isAdminField = value;
+                    this.RaisePropertyChanged("isAdmin");
                 }
             }
         }
@@ -239,6 +255,12 @@ namespace BlackJackWeb.BJServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/GetGames", ReplyAction="http://tempuri.org/IBJService/GetGamesResponse")]
         BlackJackWeb.BJServiceRef.GameWcf[] GetGames();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/getUser", ReplyAction="http://tempuri.org/IBJService/getUserResponse")]
+        BlackJackWeb.BJServiceRef.UserWcf getUser(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/addUser", ReplyAction="http://tempuri.org/IBJService/addUserResponse")]
+        bool addUser(BlackJackWeb.BJServiceRef.UserWcf user, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -294,6 +316,14 @@ namespace BlackJackWeb.BJServiceRef {
         
         public BlackJackWeb.BJServiceRef.GameWcf[] GetGames() {
             return base.Channel.GetGames();
+        }
+        
+        public BlackJackWeb.BJServiceRef.UserWcf getUser(string username) {
+            return base.Channel.getUser(username);
+        }
+        
+        public bool addUser(BlackJackWeb.BJServiceRef.UserWcf user, string password) {
+            return base.Channel.addUser(user, password);
         }
     }
 }

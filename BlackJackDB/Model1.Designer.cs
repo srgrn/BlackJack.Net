@@ -298,13 +298,15 @@ namespace BlackJackDB
         /// <param name="username">Initial value of the username property.</param>
         /// <param name="password">Initial value of the password property.</param>
         /// <param name="money">Initial value of the money property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.Int32 money)
+        /// <param name="isAdmin">Initial value of the isAdmin property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.Int32 money, global::System.Boolean isAdmin)
         {
             User user = new User();
             user.ID = id;
             user.username = username;
             user.password = password;
             user.money = money;
+            user.isAdmin = isAdmin;
             return user;
         }
 
@@ -433,6 +435,30 @@ namespace BlackJackDB
         private Nullable<global::System.Int32> _numOfGames;
         partial void OnnumOfGamesChanging(Nullable<global::System.Int32> value);
         partial void OnnumOfGamesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean isAdmin
+        {
+            get
+            {
+                return _isAdmin;
+            }
+            set
+            {
+                OnisAdminChanging(value);
+                ReportPropertyChanging("isAdmin");
+                _isAdmin = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("isAdmin");
+                OnisAdminChanged();
+            }
+        }
+        private global::System.Boolean _isAdmin;
+        partial void OnisAdminChanging(global::System.Boolean value);
+        partial void OnisAdminChanged();
 
         #endregion
     

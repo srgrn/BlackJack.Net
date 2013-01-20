@@ -18,6 +18,7 @@
     <Property Name="password" Type="nvarchar" Nullable="false" />
     <Property Name="money" Type="int" Nullable="false" />
     <Property Name="numOfGames" Type="int" Nullable="true" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Game">
     <Key>
@@ -46,6 +47,7 @@
           <Property Type="String" Name="password" Nullable="false" />
           <Property Type="Int32" Name="money" Nullable="false" />
           <Property Type="Int32" Name="numOfGames" Nullable="true" />
+          <Property Type="Boolean" Name="isAdmin" Nullable="false" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -71,6 +73,7 @@
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="money" ColumnName="money" />
           <ScalarProperty Name="numOfGames" ColumnName="numOfGames" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -105,7 +108,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1" >
-        <EntityTypeShape EntityType="BlackJackDataModel.User" Width="1.5" PointX="3" PointY="1.625" Height="1.9802864583333331" />
+        <EntityTypeShape EntityType="BlackJackDataModel.User" Width="1.5" PointX="3" PointY="1.625" Height="2.172587890625" />
         <EntityTypeShape EntityType="BlackJackDataModel.Game" Width="1.5" PointX="4.625" PointY="1.625" Height="1.9802864583333331" />
       </Diagram>
     </Diagrams>
