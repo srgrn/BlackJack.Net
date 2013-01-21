@@ -261,6 +261,9 @@ namespace BlackJackWeb.BJServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/addUser", ReplyAction="http://tempuri.org/IBJService/addUserResponse")]
         bool addUser(BlackJackWeb.BJServiceRef.UserWcf user, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/getUsers", ReplyAction="http://tempuri.org/IBJService/getUsersResponse")]
+        BlackJackWeb.BJServiceRef.UserWcf[] getUsers();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -324,6 +327,10 @@ namespace BlackJackWeb.BJServiceRef {
         
         public bool addUser(BlackJackWeb.BJServiceRef.UserWcf user, string password) {
             return base.Channel.addUser(user, password);
+        }
+        
+        public BlackJackWeb.BJServiceRef.UserWcf[] getUsers() {
+            return base.Channel.getUsers();
         }
     }
 }

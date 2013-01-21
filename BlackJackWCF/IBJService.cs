@@ -30,6 +30,8 @@ namespace BlackJackWCF
         UserWcf getUser(string username);
         [OperationContract]
         bool addUser(UserWcf user,string password);
+        [OperationContract]
+        UserWcf[] getUsers();
         
     }
 

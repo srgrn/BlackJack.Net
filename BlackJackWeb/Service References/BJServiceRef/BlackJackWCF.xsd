@@ -26,4 +26,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfGameWcf" nillable="true" type="tns:ArrayOfGameWcf" />
+  <xs:complexType name="ArrayOfUserWcf">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserWcf" nillable="true" type="tns:UserWcf" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserWcf" nillable="true" type="tns:ArrayOfUserWcf" />
 </xs:schema>

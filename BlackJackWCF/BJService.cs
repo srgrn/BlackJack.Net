@@ -113,7 +113,16 @@ namespace BlackJackWCF
             dal.AddUser(user.Username, password);
             return true;
         }
-
+        public UserWcf[] getUsers()
+        {
+            DAL dal = new DAL();
+            List<UserWcf> ret = new List<UserWcf>();
+            foreach (User u in dal.GetUsers())
+            {
+                ret.Add(userToWCF(u));
+            }
+            return ret.ToArray();
+        }
         /// <summary>
         /// Convert a user entity to UserWCF 
         /// </summary>
