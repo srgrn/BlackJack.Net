@@ -30,15 +30,18 @@ namespace BlackJackWeb
                     rbl_users.DataValueField = "Username";
                     rbl_users.DataBind();
                     Session["userlist"] = users;
-                    populateFields();
                 }
+                populateFields();
             }
             if (Page.IsPostBack)
             {
-                if (Session["userlist"] != null)
-                    users = (UserWcf[])Session["userlist"];
-                selectedUser = users.Single<UserWcf>(x => x.Username == rbl_users.SelectedValue);
+                txt_username.Text = selectedUser.Username;
+                selectedUser.money = int.Parse(txt_money.Text);
+                selectedUser.numOfGames = int.Parse(txt_num_of_games.Text);
+                selectedUser.isAdmin = chk_admin.Checked;
+                
             }
+            
             
             
         }
@@ -49,6 +52,7 @@ namespace BlackJackWeb
             if (!currentUser.isAdmin)
             {
                 lbl_Admin.Visible = false;
+                lbl_userlist.Visible = false;
                 chk_admin.Visible = false;
                 txt_money.Attributes["disabled"]= "true";
                 txt_num_of_games.Attributes["disabled"]= "true";
@@ -62,6 +66,7 @@ namespace BlackJackWeb
             else
             {
                 lbl_Admin.Visible = true;
+                lbl_userlist.Visible = true;
                 chk_admin.Visible = true;
                 submit.Visible = true;
                 txt_money.Attributes.Remove("disabled");
@@ -86,9 +91,25 @@ namespace BlackJackWeb
             u.money = int.Parse(txt_money.Text);
             u.numOfGames = int.Parse(txt_num_of_games.Text);
             u.ID = selectedUser.ID;
-            service.updateUser(u);
+            if (service.updateUser(u))
+                notification.Text = "Updated user " + u.Username;
             users = service.getUsers();
             Session["userlist"] = users;
+            rbl_users.DataBind();
+        }
+
+        protected void rbl_users_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((RadioButtonList)sender).SelectedValue != selectedUser.Username)
+            {
+                notification.Text = "";
+                if (Session["userlist"] != null)
+                {
+                    users = (UserWcf[])Session["userlist"];
+                    selectedUser = users.Single<UserWcf>(x => x.Username == rbl_users.SelectedValue);
+                    populateFields();
+                }
+            }
         }
     }
 }

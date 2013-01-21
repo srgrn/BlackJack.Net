@@ -36,10 +36,17 @@ Number Of Games:
 </div>
 </div>
 <div class="row">
-<asp:Button ID="submit" runat="server" Text="Update" onclick="submit_Click"  /></div>
+<asp:Button ID="submit" runat="server" Text="Update" onclick="submit_Click"  />
+<asp:Label runat="server" ID="notification"></asp:Label>
+</div>
+<br />
+<br />
 <div class="row">
-<div class="span8">
-<asp:RadioButtonList runat="server" AutoPostBack="true" ID="rbl_users" RepeatDirection="Horizontal"></asp:RadioButtonList>
+<div class="span2><asp:label runat="server" ID="lbl_userlist">Users:</asp:label></div>
+<div class="span8 pagination-centered8">
+<asp:RadioButtonList runat="server" AutoPostBack="true" ID="rbl_users" 
+        RepeatDirection="Horizontal" 
+        onselectedindexchanged="rbl_users_SelectedIndexChanged"></asp:RadioButtonList>
 </div>
 </div>
 </asp:Content>

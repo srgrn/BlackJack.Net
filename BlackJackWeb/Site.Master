@@ -19,7 +19,7 @@
             <div class="row-fluid">
               <div class="span2" id="sidebar">
               <ul>
-                  <li>Register</li>
+                  <li><a href="register.aspx">Register</a></li>
                   <li>Download</li>
               </ul>
               </div>
