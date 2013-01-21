@@ -20,6 +20,8 @@
               <div class="span2" id="sidebar">
               <ul>
                   <li><a href="register.aspx">Register</a></li>
+                  <li><a href="UserPage.aspx">User Page</a></li>
+                  <li><a href="Default.aspx">Login</a></li>
                   <li>Download</li>
               </ul>
               </div>
