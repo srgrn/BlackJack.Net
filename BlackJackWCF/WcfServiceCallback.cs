@@ -12,5 +12,7 @@ namespace BlackJackWCF
     {
         [OperationContract(IsOneWay = true)]
         void updateGames(String action,GameWcf game);
+        [OperationContract(IsOneWay = true)]
+        void loginCallback(UserWcf user);
     }
 }

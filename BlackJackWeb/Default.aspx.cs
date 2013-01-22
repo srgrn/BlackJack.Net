@@ -27,18 +27,18 @@ namespace BlackJackWeb
 
         protected void Submit_Click(object sender, EventArgs e)
         {
-            if (service.getUser(txt_username.Text) == null){
+            if (service.getUser(txt_username.Text) == null)
+            {
                 lbl_warning.Text = "Warning no such user";
-                }
+            }
             else
             {
-                UserWcf user = service.login(txt_username.Text, txt_password.Attributes["value"]);
-                if (user != null)
+                UserWcf me = service.loginWeb(txt_username.Text, txt_password.Attributes["value"]);
+                if (me != null)
                 {
-                    Session["user"] = user;
+                    Session["user"] = me;
                     Response.Redirect("~/UserPage.aspx");
                 }
-
             }
         }
     }

@@ -13,7 +13,12 @@ namespace BlackJackWCF
     InstanceContextMode = InstanceContextMode.Single)]
     public class BJService : IBJService
     {
-        public UserWcf login(string username,string password)
+        public void login(string username,string password)
+        {
+            WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
+            update.loginCallback(loginWeb(username,password));
+        }
+        public UserWcf loginWeb(string username, string password)
         {
             DAL dal = new DAL();
             User u = dal.GetUser(username);
@@ -23,12 +28,12 @@ namespace BlackJackWCF
                 user.ID = u.ID;
                 user.Username = u.username;
                 user.money = u.money;
-                if(u.numOfGames != null)
+                if (u.numOfGames != null)
                     user.numOfGames = (int)u.numOfGames; // somehow this became in? instead of int
                 user.isAdmin = u.isAdmin;
                 return user;
             }
-            return null ;
+            return null;
         }
         public bool logout(UserWcf user)
         {

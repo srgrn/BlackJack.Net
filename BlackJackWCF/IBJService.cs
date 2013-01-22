@@ -16,7 +16,9 @@ namespace BlackJackWCF
     public interface IBJService
     {
         [OperationContract]
-        UserWcf login(string username,string password);
+        void login(string username,string password);
+        [OperationContract]
+        UserWcf loginWeb(string username, string password);
         [OperationContract]
         bool logout(UserWcf user);
         [OperationContract]

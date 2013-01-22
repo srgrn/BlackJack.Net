@@ -13,5 +13,9 @@ namespace BlackJackWeb
         {
             // do nithing since this is an empty callback class
         }
+        public void loginCallback(UserWcf user)
+        {
+
+        }
     }
 }

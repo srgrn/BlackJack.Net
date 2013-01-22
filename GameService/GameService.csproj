@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{784D518E-4793-44D8-8227-919818AD0A53}</ProjectGuid>
+    <ProjectGuid>{719DB94F-97CA-45AE-B0BB-4A6AC1FF3F2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlackJackWCF</RootNamespace>
-    <AssemblyName>BlackJackWCF</AssemblyName>
+    <RootNamespace>GameService</RootNamespace>
+    <AssemblyName>GameService</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -37,27 +37,27 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBJService.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="MessageInterface.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BJService.cs" />
-    <Compile Include="WcfServiceCallback.cs" />
+    <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlackJackDB\BlackJackDB.csproj">
-      <Project>{2616AEA5-82E5-4C9A-AD3C-6FAB2F1B8F8F}</Project>
-      <Name>BlackJackDB</Name>
+    <ProjectReference Include="..\BlackJackWCF\BlackJackWCF.csproj">
+      <Project>{784D518E-4793-44D8-8227-919818AD0A53}</Project>
+      <Name>BlackJackWCF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
