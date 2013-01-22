@@ -232,65 +232,73 @@ namespace BlackJackWeb.BJServiceRef {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BJServiceRef.IBJService")]
-    public interface IBJService {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BJServiceRef.Service", CallbackContract=typeof(BlackJackWeb.BJServiceRef.ServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
+    public interface Service {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/login", ReplyAction="http://tempuri.org/IBJService/loginResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/login", ReplyAction="http://tempuri.org/Service/loginResponse")]
         BlackJackWeb.BJServiceRef.UserWcf login(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/logout", ReplyAction="http://tempuri.org/IBJService/logoutResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/logout", ReplyAction="http://tempuri.org/Service/logoutResponse")]
         bool logout(BlackJackWeb.BJServiceRef.UserWcf user);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/updateUser", ReplyAction="http://tempuri.org/IBJService/updateUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/updateUser", ReplyAction="http://tempuri.org/Service/updateUserResponse")]
         bool updateUser(BlackJackWeb.BJServiceRef.UserWcf u);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/addGame", ReplyAction="http://tempuri.org/IBJService/addGameResponse")]
-        BlackJackWeb.BJServiceRef.GameWcf addGame(string IP, BlackJackWeb.BJServiceRef.UserWcf user);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/addGame", ReplyAction="http://tempuri.org/Service/addGameResponse")]
+        void addGame(string IP, BlackJackWeb.BJServiceRef.UserWcf user);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/RemoveGameByUser", ReplyAction="http://tempuri.org/IBJService/RemoveGameByUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/RemoveGameByUser", ReplyAction="http://tempuri.org/Service/RemoveGameByUserResponse")]
         bool RemoveGameByUser(BlackJackWeb.BJServiceRef.UserWcf user);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/RemoveGameByIP", ReplyAction="http://tempuri.org/IBJService/RemoveGameByIPResponse")]
-        bool RemoveGameByIP(string IP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/RemoveGameByIP", ReplyAction="http://tempuri.org/Service/RemoveGameByIPResponse")]
+        void RemoveGameByIP(string IP);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/GetGames", ReplyAction="http://tempuri.org/IBJService/GetGamesResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/GetGames", ReplyAction="http://tempuri.org/Service/GetGamesResponse")]
         BlackJackWeb.BJServiceRef.GameWcf[] GetGames();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/getUser", ReplyAction="http://tempuri.org/IBJService/getUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/getUser", ReplyAction="http://tempuri.org/Service/getUserResponse")]
         BlackJackWeb.BJServiceRef.UserWcf getUser(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/addUser", ReplyAction="http://tempuri.org/IBJService/addUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/addUser", ReplyAction="http://tempuri.org/Service/addUserResponse")]
         bool addUser(BlackJackWeb.BJServiceRef.UserWcf user, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBJService/getUsers", ReplyAction="http://tempuri.org/IBJService/getUsersResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Service/getUsers", ReplyAction="http://tempuri.org/Service/getUsersResponse")]
         BlackJackWeb.BJServiceRef.UserWcf[] getUsers();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IBJServiceChannel : BlackJackWeb.BJServiceRef.IBJService, System.ServiceModel.IClientChannel {
+    public interface ServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/Service/updateGames")]
+        void updateGames(string action, BlackJackWeb.BJServiceRef.GameWcf game);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ServiceChannel : BlackJackWeb.BJServiceRef.Service, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class BJServiceClient : System.ServiceModel.ClientBase<BlackJackWeb.BJServiceRef.IBJService>, BlackJackWeb.BJServiceRef.IBJService {
+    public partial class ServiceClient : System.ServiceModel.DuplexClientBase<BlackJackWeb.BJServiceRef.Service>, BlackJackWeb.BJServiceRef.Service {
         
-        public BJServiceClient() {
+        public ServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public BJServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public ServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public BJServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public ServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public BJServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public ServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public BJServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public ServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
         public BlackJackWeb.BJServiceRef.UserWcf login(string username, string password) {
@@ -305,16 +313,16 @@ namespace BlackJackWeb.BJServiceRef {
             return base.Channel.updateUser(u);
         }
         
-        public BlackJackWeb.BJServiceRef.GameWcf addGame(string IP, BlackJackWeb.BJServiceRef.UserWcf user) {
-            return base.Channel.addGame(IP, user);
+        public void addGame(string IP, BlackJackWeb.BJServiceRef.UserWcf user) {
+            base.Channel.addGame(IP, user);
         }
         
         public bool RemoveGameByUser(BlackJackWeb.BJServiceRef.UserWcf user) {
             return base.Channel.RemoveGameByUser(user);
         }
         
-        public bool RemoveGameByIP(string IP) {
-            return base.Channel.RemoveGameByIP(IP);
+        public void RemoveGameByIP(string IP) {
+            base.Channel.RemoveGameByIP(IP);
         }
         
         public BlackJackWeb.BJServiceRef.GameWcf[] GetGames() {

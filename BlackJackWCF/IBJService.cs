@@ -9,7 +9,10 @@ using BlackJackDB;
 namespace BlackJackWCF
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IBJService" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(
+        Name = "Service",
+        SessionMode = SessionMode.Required,
+        CallbackContract = typeof(WcfServiceCallback))]
     public interface IBJService
     {
         [OperationContract]
@@ -19,11 +22,11 @@ namespace BlackJackWCF
         [OperationContract]
         bool updateUser(UserWcf u);
         [OperationContract]
-        GameWcf addGame(String IP,UserWcf user);
+        void addGame(String IP,UserWcf user);
         [OperationContract]
         bool RemoveGameByUser(UserWcf user);
         [OperationContract]
-        bool RemoveGameByIP(String IP);
+        void RemoveGameByIP(String IP);
         [OperationContract]
         GameWcf[] GetGames();
         [OperationContract]

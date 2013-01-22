@@ -8,7 +8,9 @@ using BlackJackDB;
 
 namespace BlackJackWCF
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
+    [ServiceBehavior(
+    ConcurrencyMode = ConcurrencyMode.Single,
+    InstanceContextMode = InstanceContextMode.Single)]
     public class BJService : IBJService
     {
         public UserWcf login(string username,string password)
@@ -48,12 +50,12 @@ namespace BlackJackWCF
             }
             return false; // should handle exception better;
         }
-        public GameWcf addGame(String IP, UserWcf user)
+        public void addGame(String IP, UserWcf user)
         {
             DAL dal = new DAL();
             Game game = dal.AddGame(IP, user.Username);
-            return gameToWCF(game);
-
+            WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
+            update.updateGames("add",gameToWCF(game));
         }
         public bool RemoveGameByUser(UserWcf user) 
         {
@@ -70,16 +72,17 @@ namespace BlackJackWCF
             }
             return false;
         }
-        public bool RemoveGameByIP(String IP)
+        public void RemoveGameByIP(String IP)
         {
             DAL dal = new DAL();
             Game game = dal.GetGame(IP);
             if(game != null)
                 {
                     dal.removeGame(game);
-                    return true;
+                    WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
+                    update.updateGames("remove", gameToWCF(game));
                 }
-            return false;
+
         }
         public GameWcf[] GetGames()
         {
@@ -135,6 +138,22 @@ namespace BlackJackWCF
             ret.Username = user.username;
             ret.money = user.money;
             if(user.numOfGames != null)
+                ret.numOfGames = (int)user.numOfGames;
+            ret.isAdmin = user.isAdmin;
+            return ret;
+        }
+        /// <summary>
+        /// Convert a WCF user to User entity
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private User WCFtoUser(UserWcf user)
+        {
+            User ret = new User();
+            ret.ID = user.ID;
+            ret.username = user.Username;
+            ret.money = user.money;
+            if (user.numOfGames != null)
                 ret.numOfGames = (int)user.numOfGames;
             ret.isAdmin = user.isAdmin;
             return ret;

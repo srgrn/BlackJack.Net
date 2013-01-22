@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3df599ab-9b89-44c9-aa75-d0ee1932829b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c5204fa1-f4ab-42de-af70-1d685cedf6d4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,10 +21,10 @@
     <MetadataSource Address="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="a28059ec-f8e5-4bfa-870d-a95e920c2168" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="e748639a-1be5-4d91-8585-c24d5c37dd0c" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="5b3281f6-3a84-47ed-8698-3c03f9d8fc98" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
-    <MetadataFile FileName="BlackJackWCF.xsd" MetadataType="Schema" ID="e809499a-b0dc-43ff-a1cd-ee5a3ace5884" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="e068925d-4c03-43fa-af64-f9d01c4bda54" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="5aca2638-155b-4270-8e73-ba5f19fcdc3e" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="2227d37b-5f78-40dc-9f89-48beac1a6b3f" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
+    <MetadataFile FileName="BlackJackWCF.xsd" MetadataType="Schema" ID="337c9243-9e1b-4cc7-be7b-cb692c40b206" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BlackJackWCF/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

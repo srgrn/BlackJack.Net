@@ -5,17 +5,22 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BlackJackWeb.BJServiceRef;
+using System.ServiceModel;
 
 namespace BlackJackWeb
 {
     public partial class UserPage : System.Web.UI.Page
     {
-        BJServiceClient service = new BJServiceClient();
+        private static ServiceClient service = null;
         static UserWcf currentUser = null;
         static UserWcf selectedUser = null;
         UserWcf[] users = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack && !IsCallback)
+            {
+                service = new BJServiceRef.ServiceClient(new InstanceContext(new emptyCallback()),"HttpBinding");
+            }
             if (Session["user"] == null)
                 Server.Transfer("~/Default.aspx");
             currentUser = (UserWcf)Session["user"];

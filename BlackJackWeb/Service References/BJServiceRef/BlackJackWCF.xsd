@@ -10,6 +10,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserWcf" nillable="true" type="tns:UserWcf" />
+  <xs:complexType name="ArrayOfGameWcf">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameWcf" nillable="true" type="tns:GameWcf" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGameWcf" nillable="true" type="tns:ArrayOfGameWcf" />
   <xs:complexType name="GameWcf">
     <xs:sequence>
       <xs:element minOccurs="0" name="FirstUser" nillable="true" type="xs:string" />
@@ -20,12 +26,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameWcf" nillable="true" type="tns:GameWcf" />
-  <xs:complexType name="ArrayOfGameWcf">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameWcf" nillable="true" type="tns:GameWcf" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfGameWcf" nillable="true" type="tns:ArrayOfGameWcf" />
   <xs:complexType name="ArrayOfUserWcf">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserWcf" nillable="true" type="tns:UserWcf" />

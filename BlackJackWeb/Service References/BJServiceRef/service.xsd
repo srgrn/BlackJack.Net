@@ -54,15 +54,13 @@
   </xs:element>
   <xs:element name="addGameResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="addGameResult" nillable="true" type="q5:GameWcf" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="RemoveGameByUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="user" nillable="true" type="q6:UserWcf" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="user" nillable="true" type="q5:UserWcf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -82,9 +80,7 @@
   </xs:element>
   <xs:element name="RemoveGameByIPResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RemoveGameByIPResult" type="xs:boolean" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="GetGames">
@@ -95,7 +91,7 @@
   <xs:element name="GetGamesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="GetGamesResult" nillable="true" type="q7:ArrayOfGameWcf" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="GetGamesResult" nillable="true" type="q6:ArrayOfGameWcf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -109,14 +105,14 @@
   <xs:element name="getUserResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="getUserResult" nillable="true" type="q8:UserWcf" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="getUserResult" nillable="true" type="q7:UserWcf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="addUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="user" nillable="true" type="q9:UserWcf" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="user" nillable="true" type="q8:UserWcf" />
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -136,7 +132,15 @@
   <xs:element name="getUsersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="getUsersResult" nillable="true" type="q10:ArrayOfUserWcf" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="getUsersResult" nillable="true" type="q9:ArrayOfUserWcf" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateGames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="action" nillable="true" type="xs:string" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/BlackJackWCF" minOccurs="0" name="game" nillable="true" type="q10:GameWcf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

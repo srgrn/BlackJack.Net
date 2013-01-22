@@ -5,18 +5,23 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BlackJackWeb.BJServiceRef;
+using System.ServiceModel;
 
 namespace BlackJackWeb
 {
     public partial class Default : System.Web.UI.Page
     {
-        BJServiceClient service = new BJServiceClient();
+        private static ServiceClient service = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack && txt_password.Text != string.Empty)
             {
                 txt_password.Attributes["value"] = txt_password.Text;
+            }
+            if (!IsPostBack && !IsCallback)
+            {
+                service = new BJServiceRef.ServiceClient(new InstanceContext(new emptyCallback()), "HttpBinding");
             }
         }
 

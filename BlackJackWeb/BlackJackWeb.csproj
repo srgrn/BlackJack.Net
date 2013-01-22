@@ -53,18 +53,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\BJServiceRef\BlackJackWeb.BJServiceRef.GameWcf.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\BJServiceRef\BlackJackWeb.BJServiceRef.UserWcf.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\BJServiceRef\configuration91.svcinfo" />
-    <None Include="Service References\BJServiceRef\configuration.svcinfo" />
-    <None Include="Service References\BJServiceRef\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -77,6 +65,18 @@
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="register.aspx" />
+    <None Include="Service References\BJServiceRef\BlackJackWeb.BJServiceRef.GameWcf.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BJServiceRef\BlackJackWeb.BJServiceRef.UserWcf.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BJServiceRef\configuration91.svcinfo" />
+    <None Include="Service References\BJServiceRef\configuration.svcinfo" />
+    <None Include="Service References\BJServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="UserPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -88,6 +88,7 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="callback.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
