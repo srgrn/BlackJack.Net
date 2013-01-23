@@ -50,7 +50,7 @@ namespace GameService
                             numAces++;
                             val += 11;
                         }
-                        else if (c.CardNum == 10 || c.CardNum == 11 || c.CardNum == 12)
+                        else if (c.CardNum == 11 || c.CardNum == 12 || c.CardNum == 13)
                         {
                             val += 10;
                         }

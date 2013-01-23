@@ -57,9 +57,9 @@ namespace WinClient
                 pipeProxy = pipeFactory.CreateChannel();
 
                 pipeProxy.Subscribe();
+                myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
                 if (pipeProxy.runningGame())
                 {
-                    myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
                     pipeProxy.resetGame();
                 }
                 return true;
@@ -235,6 +235,7 @@ namespace WinClient
                 btn_stand.Enabled = true;
                 btn_hit.Enabled = true;
             }
+
         }
 
         private void calculateGame(int myID)
@@ -243,6 +244,8 @@ namespace WinClient
             {
                 int myHand = CalculateHand(myCards);
                 int dealerHand = CalculateHand(dealerCards);
+                myCards.Clear();
+                dealerCards.Clear();
 
                 if (dealerHand > 21 || (myHand > dealerHand && busted== false))
                 {
@@ -258,15 +261,12 @@ namespace WinClient
                 me.numOfGames++;
                 new Thread(() => service.updateUser(me)).Start();
             }
-            else
-            {
-                myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
-            }
             btn_bet.Enabled = true;
             txt_bet.Enabled = true;
             btn_deal.Enabled = false;
             btn_hit.Enabled = false;
             btn_stand.Enabled = false;
+            busted = false;
             clearCardsImg(0);
             clearCardsImg(1);
             clearCardsImg(2);
@@ -302,11 +302,7 @@ namespace WinClient
             btn_stand.Enabled = false;
         }
 
-        private void GameScreen_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            pipeProxy.leave(myID);
-            pipeProxy.Unsubscribe();
-        }
+        
     }
         #endregion
 }

@@ -153,14 +153,21 @@ namespace GameService
 
         private void dealCards(int id)
         {
+            Card card = deck.Draw();
+            Card card2 = deck.Draw();
+            if (id == 0)
+            {
+                dealer.AddCard(card);
+                dealer.AddCard(card2);
+            }
             subscribers.ForEach(delegate(IMessageCallback callback)
             {
                 if (((ICommunicationObject)callback).State == CommunicationState.Opened)
                 {
-                    Card card = deck.Draw();
+                    
                     callback.OnGetCard(card.CardNum, card.CardType, id);
-                    card = deck.Draw();
-                    callback.OnGetCard(card.CardNum, card.CardType, id);
+                    
+                    callback.OnGetCard(card2.CardNum, card2.CardType, id);
                 }
                 else
                 {
@@ -171,15 +178,15 @@ namespace GameService
 
         public void hit(int player)
         {
+            Card card = deck.Draw();
             subscribers.ForEach(delegate(IMessageCallback callback)
             {
+                if (player == 0)
+                {
+                    dealer.AddCard(card);
+                }
                 if (((ICommunicationObject)callback).State == CommunicationState.Opened)
                 {
-                    Card card = deck.Draw();
-                    if (player == 0)
-                    {
-                        dealer.AddCard(card);
-                    }
                     callback.OnGetCard(card.CardNum, card.CardType, player);
                 }
                 else
@@ -194,15 +201,13 @@ namespace GameService
             if (player == 1 && player1 != null)
             {
                 player1.stand = true;
-                if (player2 == null || player2.stand || player2.bust)
-                    dealerPlay();
             }
             else if (player == 2 && player2 != null)
             {
                 player2.stand = true;
-                if (player1.stand || player1.bust)
-                    dealerPlay();
             }
+            if ((player2 == null || player2.stand || player2.bust) && (player1.stand || player1.bust))
+                dealerPlay();
         }
 
         public void dealerPlay()
@@ -213,8 +218,20 @@ namespace GameService
                 hit(0);
                 
             }
-            Thread.Sleep(2500); // this is a very wastefull way to enter a delay
+            Thread.Sleep(500); // this is a very wastefull way to enter a delay
+            dealer.cards.Clear();
+            if (player1 != null)
+            {
+                player1.bust = false;
+                player1.stand = false;
+            }
+            if (player2 != null)
+            {
+                player2.stand = false;
+                player2.bust = false;
+            }
             sendGameMessage("GameOver");
+
 
         }
         public void resetGame()
@@ -229,7 +246,9 @@ namespace GameService
                 if (player2 != null)
                     player2.resetCards();
                 gameIsNotRunning = false;
+
             }
+
         }
 
         public void bust(int player)
@@ -237,15 +256,13 @@ namespace GameService
             if (player == 1 && player1 != null)
             {
                 player1.bust = true;
-                if (player2 == null || player2.stand || player2.bust)
-                    dealerPlay();
             }
             else if (player == 2 && player2 != null)
             {
                 player2.bust = true;
-                if (player1.stand || player1.bust)
-                    dealerPlay();
             }
+            if ((player2 == null || player2.stand || player2.bust) && (player1.stand || player1.bust))
+                dealerPlay();
         }
         private void sendGameMessage(string message)
         {

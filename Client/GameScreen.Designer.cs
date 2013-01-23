@@ -418,7 +418,6 @@
             this.Controls.Add(this.txt_chat);
             this.Name = "GameScreen";
             this.Text = "GameScreen";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameScreen_FormClosing);
             this.grpDealer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pb_DealerCard1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_DealerCard2)).EndInit();
