@@ -22,7 +22,7 @@
                   <li><a href="register.aspx">Register</a></li>
                   <li><a href="UserPage.aspx">User Page</a></li>
                   <li><a href="Default.aspx">Login</a></li>
-                  <li>Download</li>
+                  <li><a href="App/Client.zip">Download</a></li>
               </ul>
               </div>
               <div class="span10">

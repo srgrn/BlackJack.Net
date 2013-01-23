@@ -56,11 +56,8 @@ namespace WinClient
             this.Hide();
             GameScreen gameScreen = new GameScreen(me,IP);
             gameScreen.ShowDialog();
-            if (serverThread.ThreadState == ThreadState.Running)
-            {
-                serverThread.Abort();
-                new Thread(() => service.RemoveGameByIP(IP));
-            }
+            serverThread.Abort();
+            new Thread(() => service.RemoveGameByIP(IP));
             this.Show();
             
 

@@ -278,6 +278,7 @@ namespace WinClient
             int.TryParse(txt_bet.Text, out amount);
             bet = amount;
             me.money -= amount;
+            busted = false;
             new Thread(() => service.updateUser(me)).Start();
             if (myID == 1)
             {
@@ -299,6 +300,12 @@ namespace WinClient
             new Thread(() => pipeProxy.stand(myID)).Start();
             btn_hit.Enabled = false;
             btn_stand.Enabled = false;
+        }
+
+        private void GameScreen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            pipeProxy.leave(myID);
+            pipeProxy.Unsubscribe();
         }
     }
         #endregion
