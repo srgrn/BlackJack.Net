@@ -44,6 +44,7 @@ namespace WinClient
 
         public bool Connect(String IP)
         {
+
             DuplexChannelFactory<IMessage> pipeFactory =
                   new DuplexChannelFactory<IMessage>(
                       new InstanceContext(this),
@@ -56,8 +57,11 @@ namespace WinClient
                 pipeProxy = pipeFactory.CreateChannel();
 
                 pipeProxy.Subscribe();
-                myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
-                pipeProxy.resetGame();
+                if (pipeProxy.runningGame())
+                {
+                    myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
+                    pipeProxy.resetGame();
+                }
                 return true;
             }
             catch (Exception e)
@@ -132,16 +136,13 @@ namespace WinClient
 
         private void btn_deal_Click(object sender, EventArgs e)
         {
+            pipeProxy.resetGame();
             clearCardsImg(0);
             clearCardsImg(1);
             clearCardsImg(2);
             myCards.Clear();
-            dealerCards.Clear();
+            dealerCards.Clear();            
             new Thread(() => pipeProxy.deal()).Start();
-            btn_deal.Enabled = false;
-            btn_stand.Enabled = true;
-            btn_hit.Enabled = true;
-
         }
 
         private void clearCardsImg(int player)
@@ -228,22 +229,39 @@ namespace WinClient
             {
                 calculateGame(myID);
             }
+            if (message == "GameStarted")
+            {
+                btn_deal.Enabled = false;
+                btn_stand.Enabled = true;
+                btn_hit.Enabled = true;
+            }
         }
 
         private void calculateGame(int myID)
         {
-            int myHand = CalculateHand(myCards);
-            int dealerHand = CalculateHand(dealerCards);
-            if (busted == true || myHand < dealerHand)
+            if (myID != -1)
             {
-                // basicly the money has already been removed from my account.
+                int myHand = CalculateHand(myCards);
+                int dealerHand = CalculateHand(dealerCards);
+
+                if (dealerHand > 21 || (myHand > dealerHand && busted== false))
+                {
+                    String msg = String.Format("You Won: Player Hand = {0} , Dealer Hand = {1}", myHand, dealerHand);
+                    MessageBox.Show(msg);
+                    me.money += bet * 2;
+                }
+                else // if (busted == true || myHand < dealerHand) // assuming if i haven't won i have lost
+                {
+                    String msg = String.Format("You lost: Player Hand = {0} , Dealer Hand = {1}", myHand, dealerHand);
+                    MessageBox.Show(msg);
+                }
+                me.numOfGames++;
+                new Thread(() => service.updateUser(me)).Start();
             }
-            else if (dealerHand > 21 || myHand > dealerHand)
+            else
             {
-                me.money += bet * 2;
+                myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
             }
-            me.numOfGames++;
-            new Thread(() => service.updateUser(me)).Start();
             btn_bet.Enabled = true;
             txt_bet.Enabled = true;
             btn_deal.Enabled = false;
@@ -252,7 +270,6 @@ namespace WinClient
             clearCardsImg(0);
             clearCardsImg(1);
             clearCardsImg(2);
-            pipeProxy.resetGame();
         }
 
         private void btn_bet_Click(object sender, EventArgs e)
@@ -262,7 +279,10 @@ namespace WinClient
             bet = amount;
             me.money -= amount;
             new Thread(() => service.updateUser(me)).Start();
-            btn_deal.Enabled = true;
+            if (myID == 1)
+            {
+                btn_deal.Enabled = true;
+            }
             btn_bet.Enabled = false;
             txt_bet.Enabled = false;
 

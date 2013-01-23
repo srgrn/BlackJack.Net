@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ServiceModel;
 using BlackJackWCF;
+using System.Threading;
 
 namespace GameService
 {
@@ -19,30 +20,30 @@ namespace GameService
         private bool gameIsNotRunning = true;
 
         public void Connect(String IP)
-		{
+        {
 
             ServiceHost host = new ServiceHost(
                 typeof(Server),
                 //new Uri(String.Format("net.tcp://{0}:8000/GameServer", IP)));
                 new Uri("net.tcp://localhost:8000")); // it doesn't seem to work when using IPs for some reason security maybe?
-			
-				host.AddServiceEndpoint(typeof(IMessage),
-				  new NetTcpBinding(),
-				  "GameServer");
-				
-				
-				try
-				{
-					host.Open();
-					//host.Close();
-				}
-				catch (Exception e)
-				{
 
-				}
-			 
-			
-		}
+            host.AddServiceEndpoint(typeof(IMessage),
+              new NetTcpBinding(),
+              "GameServer");
+
+
+            try
+            {
+                host.Open();
+                //host.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+        }
         public void disconnect()
         {
             AddMessage("Going down");
@@ -114,7 +115,7 @@ namespace GameService
             }
             else if (player2 == null)
             {
-                player2 = new Player(ID,username,money);
+                player2 = new Player(ID, username, money);
                 return 2;
             }
             else
@@ -147,6 +148,7 @@ namespace GameService
                 dealCards(2);
             }
             dealCards(0);
+            sendGameMessage("GameStarted");
         }
 
         private void dealCards(int id)
@@ -156,9 +158,9 @@ namespace GameService
                 if (((ICommunicationObject)callback).State == CommunicationState.Opened)
                 {
                     Card card = deck.Draw();
-                    callback.OnGetCard(card.CardNum, card.CardType,id);
+                    callback.OnGetCard(card.CardNum, card.CardType, id);
                     card = deck.Draw();
-                    callback.OnGetCard(card.CardNum, card.CardType,id);
+                    callback.OnGetCard(card.CardNum, card.CardType, id);
                 }
                 else
                 {
@@ -192,13 +194,13 @@ namespace GameService
             if (player == 1 && player1 != null)
             {
                 player1.stand = true;
-                if(player2 == null || player2.stand || player2.bust)
+                if (player2 == null || player2.stand || player2.bust)
                     dealerPlay();
             }
             else if (player == 2 && player2 != null)
             {
                 player2.stand = true;
-                if(player1.stand || player1.bust)
+                if (player1.stand || player1.bust)
                     dealerPlay();
             }
         }
@@ -206,31 +208,27 @@ namespace GameService
         public void dealerPlay()
         {
             // here the dealer will play
-            while(dealer.CalculateHand() < 17)
+            while (dealer.CalculateHand() < 17)
             {
-                dealerGetCard();                
+                hit(0);
+                
             }
-                sendGameMessage("GameOver");
+            Thread.Sleep(2500); // this is a very wastefull way to enter a delay
+            sendGameMessage("GameOver");
 
         }
-
-        private void dealerGetCard()
-        {
-            hit(0);
-        }
-
         public void resetGame()
         {
             if (gameIsNotRunning)
-            { 
-            deck = new Deck();
-            deck.Shuffle();
-            dealer = new Player(-1, "Dealer", 0);
-            if(player1 != null)
-                player1.resetCards();
-            if(player2 != null)
-                player2.resetCards();
-            gameIsNotRunning = false;
+            {
+                deck = new Deck();
+                deck.Shuffle();
+                dealer = new Player(-1, "Dealer", 0);
+                if (player1 != null)
+                    player1.resetCards();
+                if (player2 != null)
+                    player2.resetCards();
+                gameIsNotRunning = false;
             }
         }
 
@@ -263,6 +261,10 @@ namespace GameService
                 }
             });
 
+        }
+        public bool runningGame()
+        {
+            return gameIsNotRunning;
         }
     }
 }

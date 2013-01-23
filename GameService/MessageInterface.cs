@@ -44,6 +44,8 @@ namespace GameService
         void resetGame();
         [OperationContract]
         void bust(int player);
+        [OperationContract]
+        bool runningGame();
 
 
         
