@@ -18,7 +18,10 @@ namespace GameService
         private Player player2 = null;
         private Player dealer = null;
         private bool gameIsNotRunning = true;
-
+        /// <summary>
+        /// set up a new game server
+        /// </summary>
+        /// <param name="IP"></param>
         public void Connect(String IP)
         {
 
@@ -44,6 +47,9 @@ namespace GameService
 
 
         }
+        /// <summary>
+        /// Close a game server
+        /// </summary>
         public void disconnect()
         {
             AddMessage("Going down");
@@ -57,7 +63,10 @@ namespace GameService
             }
 
         }
-
+        /// <summary>
+        /// Register a new client in the game server
+        /// </summary>
+        /// <returns></returns>
         public bool Subscribe()
         {
             try
@@ -73,7 +82,10 @@ namespace GameService
                 return false;
             }
         }
-
+        /// <summary>
+        /// remove  a client from the game server
+        /// </summary>
+        /// <returns></returns>
         public bool Unsubscribe()
         {
             try
@@ -89,7 +101,10 @@ namespace GameService
                 return false;
             }
         }
-
+        /// <summary>
+        /// send a chat message
+        /// </summary>
+        /// <param name="message"></param>
         public void AddMessage(String message)
         {
             //Go through the list of connections and call their callback funciton
@@ -106,6 +121,14 @@ namespace GameService
             });
 
         }
+        /// <summary>
+        /// Add a palyer to the game
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="money"></param>
+        /// <param name="numOfGames"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public int join(string username, int money, int numOfGames, int ID)
         {
             if (player1 == null)
@@ -123,6 +146,10 @@ namespace GameService
                 return -1;
             }
         }
+        /// <summary>
+        /// release a player from the game
+        /// </summary>
+        /// <param name="player"></param>
         public void leave(int player)
         {
             if (player == 1)
@@ -136,7 +163,9 @@ namespace GameService
             string leaveMsg = string.Format("Player {0} has left", player);
             sendGameMessage(leaveMsg);
         }
-
+        /// <summary>
+        /// Deal cards to all players
+        /// </summary>
         public void deal()
         {
             if (player1 != null)
@@ -150,7 +179,10 @@ namespace GameService
             dealCards(0);
             sendGameMessage("GameStarted");
         }
-
+        /// <summary>
+        /// generate and set cards to a specific player
+        /// </summary>
+        /// <param name="id"></param>
         private void dealCards(int id)
         {
             Card card = deck.Draw();
@@ -175,7 +207,10 @@ namespace GameService
                 }
             });
         }
-
+        /// <summary>
+        /// Give a single card to a player
+        /// </summary>
+        /// <param name="player"></param>
         public void hit(int player)
         {
             Card card = deck.Draw();
@@ -195,7 +230,10 @@ namespace GameService
                 }
             });
         }
-
+        /// <summary>
+        /// Get player stand order
+        /// </summary>
+        /// <param name="player"></param>
         public void stand(int player)
         {
             if (player == 1 && player1 != null)
@@ -209,7 +247,9 @@ namespace GameService
             if ((player2 == null || player2.stand || player2.bust) && (player1.stand || player1.bust))
                 dealerPlay();
         }
-
+        /// <summary>
+        /// Start the Dealer play part of the game
+        /// </summary>
         public void dealerPlay()
         {
             // here the dealer will play
@@ -220,6 +260,7 @@ namespace GameService
             }
             Thread.Sleep(500); // this is a very wastefull way to enter a delay
             dealer.cards.Clear();
+            // since this is the end of the game reset player status to allow new game to commence properly
             if (player1 != null)
             {
                 player1.bust = false;
@@ -230,10 +271,14 @@ namespace GameService
                 player2.stand = false;
                 player2.bust = false;
             }
+            // send game over message
             sendGameMessage("GameOver");
 
 
         }
+        /// <summary>
+        /// Reset the game and its objects
+        /// </summary>
         public void resetGame()
         {
             if (gameIsNotRunning)
@@ -250,7 +295,10 @@ namespace GameService
             }
 
         }
-
+        /// <summary>
+        /// Get player bust order
+        /// </summary>
+        /// <param name="player"></param>
         public void bust(int player)
         {
             if (player == 1 && player1 != null)
@@ -264,6 +312,10 @@ namespace GameService
             if ((player2 == null || player2.stand || player2.bust) && (player1.stand || player1.bust))
                 dealerPlay();
         }
+        /// <summary>
+        /// Send a game message to all subscribers
+        /// </summary>
+        /// <param name="message"></param>
         private void sendGameMessage(string message)
         {
             subscribers.ForEach(delegate(IMessageCallback callback)

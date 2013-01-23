@@ -13,16 +13,27 @@ namespace BlackJackWCF
     InstanceContextMode = InstanceContextMode.Single)]
     public class BJService : IBJService
     {
+        /// <summary>
+        /// Login with a callback
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public void login(string username,string password)
         {
             WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
             update.loginCallback(loginWeb(username,password));
         }
+       /// <summary>
+       /// login without a callback
+       /// </summary>
+       /// <param name="username"></param>
+       /// <param name="password"></param>
+       /// <returns>UserWcf object with the correct user or null if the authentication was unsuccessfull</returns>
         public UserWcf loginWeb(string username, string password)
         {
             DAL dal = new DAL();
-            User u = dal.GetUser(username);
-            if (u != null && u.password == password)
+            User u = dal.GetUser(username); //verify that there is such a user
+            if (u != null && u.password == password) // verify the password
             {
                 UserWcf user = new UserWcf();
                 user.ID = u.ID;
@@ -35,6 +46,11 @@ namespace BlackJackWCF
             }
             return null;
         }
+        /// <summary>
+        /// Logout is only called when leaving the application
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public bool logout(UserWcf user)
         {
             RemoveGameByUser(user);
@@ -42,6 +58,11 @@ namespace BlackJackWCF
             // other cleanups can come here
             return true;
         }
+        /// <summary>
+        /// Updated the user in the DB using the UserWcf Repreansanataion 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <returns></returns>
         public bool updateUser(UserWcf u)
         {
             DAL dal = new DAL();
@@ -55,6 +76,11 @@ namespace BlackJackWCF
             }
             return false; // should handle exception better;
         }
+        /// <summary>
+        /// Add a new Game to DB using the Wcf Service
+        /// </summary>
+        /// <param name="IP"></param>
+        /// <param name="user"></param>
         public void addGame(String IP, UserWcf user)
         {
             DAL dal = new DAL();
@@ -62,6 +88,11 @@ namespace BlackJackWCF
             WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
             update.updateGames("add",gameToWCF(game));
         }
+        /// <summary>
+        /// Remove game of a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public bool RemoveGameByUser(UserWcf user) 
         {
             DAL dal = new DAL();
@@ -77,6 +108,10 @@ namespace BlackJackWCF
             }
             return false;
         }
+        /// <summary>
+        /// remove game specified by IP
+        /// </summary>
+        /// <param name="IP"></param>
         public void RemoveGameByIP(String IP)
         {
             DAL dal = new DAL();
@@ -85,10 +120,14 @@ namespace BlackJackWCF
                 {
                     dal.removeGame(game);
                     WcfServiceCallback update = OperationContext.Current.GetCallbackChannel<WcfServiceCallback>();
-                    update.updateGames("remove", gameToWCF(game));
+                    update.updateGames("remove", gameToWCF(game)); // this should notify the cients that the lsit has been updatd
                 }
 
         }
+        /// <summary>
+        /// Get Games 
+        /// </summary>
+        /// <returns></returns>
         public GameWcf[] GetGames()
         {
 
@@ -100,6 +139,11 @@ namespace BlackJackWCF
             }
             return ret.ToArray();
         }
+        /// <summary>
+        /// Get specific user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public UserWcf getUser(string username)
         {
             DAL dal = new DAL();
@@ -121,6 +165,10 @@ namespace BlackJackWCF
             dal.AddUser(user.Username, password);
             return true;
         }
+        /// <summary>
+        ///  Get all users from DB
+        /// </summary>
+        /// <returns></returns>
         public UserWcf[] getUsers()
         {
             DAL dal = new DAL();

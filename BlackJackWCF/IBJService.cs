@@ -40,7 +40,9 @@ namespace BlackJackWCF
         
     }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations
+    /// <summary>
+    /// Represantation of a user entity in WCF
+    /// </summary>
     [DataContract]
     public class UserWcf
     {
@@ -55,6 +57,9 @@ namespace BlackJackWCF
         [DataMember]
         public bool isAdmin { get; set; }
     }
+    /// <summary>
+    ///     /// Represantation of a game entity in WCF
+    /// </summary>
     [DataContract]
     public class GameWcf
     {

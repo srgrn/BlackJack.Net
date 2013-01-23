@@ -40,11 +40,15 @@ namespace WinClient
             service = new ServiceClient(new InstanceContext(new emptyCallback()), "HttpBinding");
         }
         #endregion
-        #region GameClient Functions
-
+        /// <summary>
+        /// Connect to game server
+        /// </summary>
+        /// <param name="IP"></param>
+        /// <returns></returns>
         public bool Connect(String IP)
         {
 
+            // Create a pipeFactory
             DuplexChannelFactory<IMessage> pipeFactory =
                   new DuplexChannelFactory<IMessage>(
                       new InstanceContext(this),
@@ -54,9 +58,11 @@ namespace WinClient
             try
             {
 
+                // Creating the communication channel
                 pipeProxy = pipeFactory.CreateChannel();
-
+                // register for events 
                 pipeProxy.Subscribe();
+                // join the game 
                 myID = pipeProxy.join(me.Username, me.money, me.numOfGames, me.ID);
                 if (pipeProxy.runningGame())
                 {
@@ -70,14 +76,20 @@ namespace WinClient
                 return false;
             }
         }
+        
         public void Disconnect()
         {
             pipeProxy.Unsubscribe();
         }
+        /// <summary>
+        /// Send a Chat messege
+        /// </summary>
+        /// <param name="message"></param>
         public void SendMessage(string message)
         {
             try
             {
+                // put the message on the channel
                 pipeProxy.AddMessage(message);
             }
             catch (Exception e)
@@ -85,20 +97,32 @@ namespace WinClient
                 // i really should use exceptyion handling maybe to some log
             }
         }
+        /// <summary>
+        /// Callback for the chat message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="timestamp"></param>
         public void OnMessageAdded(string message, DateTime timestamp)
         {
             String show = string.Format("{0} - {1}\n", timestamp.ToShortTimeString(), message);
             txt_chat.Text += show;
         }
-        #endregion
-        #region Form Events
+        /// <summary>
+        /// send chat message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_say_Click(object sender, EventArgs e)
         {
             String msg = String.Format("{0}: {1}", me.Username, txt_input.Text);
             new Thread(() => SendMessage(msg)).Start();
             txt_input.Clear();
         }
-
+        /// <summary>
+        /// send chat message
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txt_input_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -108,9 +132,12 @@ namespace WinClient
                 txt_input.Clear();
             }
         }
-        #endregion
-        #region Game Related Functions
 
+        /// <summary>
+        /// Load the card image for a given card in a given player group
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="player"></param>
         private void loadCard(Card card, int player)
         {
             GroupBox grp = Controls.OfType<GroupBox>().FirstOrDefault(g => g.Tag.ToString() == player.ToString());
@@ -133,7 +160,11 @@ namespace WinClient
             pb.Image = new Bitmap(imagePath);
 
         }
-
+        /// <summary>
+        /// handle deal button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_deal_Click(object sender, EventArgs e)
         {
             pipeProxy.resetGame();
@@ -144,7 +175,10 @@ namespace WinClient
             dealerCards.Clear();            
             new Thread(() => pipeProxy.deal()).Start();
         }
-
+        /// <summary>
+        /// Clear the card images for given player
+        /// </summary>
+        /// <param name="player">0 for dealer</param>
         private void clearCardsImg(int player)
         {
             GroupBox grp = Controls.OfType<GroupBox>().FirstOrDefault(g => g.Tag.ToString() == player.ToString());
@@ -156,13 +190,19 @@ namespace WinClient
         }
 
 
-
+        /// <summary>
+        /// callback for getting a new card from server 
+        /// </summary>
+        /// <param name="cardNum"></param>
+        /// <param name="cardType"></param>
+        /// <param name="playerID"></param>
         public void OnGetCard(int cardNum, int cardType, int playerID)
         {
             Card card = new Card(cardNum, cardType);
             Thread t = null;
             if (playerID == 0)
             {
+                // the dealer has his own card list to handle 
                 dealerCards.Add(card);
                 if (dealerCards.Count == 2)
                 { 
@@ -174,6 +214,7 @@ namespace WinClient
                 myCards.Add(card);
                 if (CalculateHand(myCards)> 21)
                 {
+                    // loading the cards images before going bust
                     t = new Thread(() =>  pipeProxy.bust(myID));
 
                 }
@@ -222,7 +263,10 @@ namespace WinClient
                 return val;
             }
         }
-
+        /// <summary>
+        /// Callback for hte GameMessage allows for server notification regarding the game
+        /// </summary>
+        /// <param name="message"></param>
         public void onGameMessage(string message)
         {
             if (message == "GameOver")
@@ -237,7 +281,10 @@ namespace WinClient
             }
 
         }
-
+        /// <summary>
+        /// Calculate who won in the game
+        /// </summary>
+        /// <param name="myID"></param>
         private void calculateGame(int myID)
         {
             if (myID != -1)
@@ -246,7 +293,7 @@ namespace WinClient
                 int dealerHand = CalculateHand(dealerCards);
                 myCards.Clear();
                 dealerCards.Clear();
-
+                // if the player won
                 if (dealerHand > 21 || (myHand > dealerHand && busted== false))
                 {
                     String msg = String.Format("You Won: Player Hand = {0} , Dealer Hand = {1}", myHand, dealerHand);
@@ -259,8 +306,10 @@ namespace WinClient
                     MessageBox.Show(msg);
                 }
                 me.numOfGames++;
+                // update user details in DB
                 new Thread(() => service.updateUser(me)).Start();
             }
+            // Set Gui back to game start
             btn_bet.Enabled = true;
             txt_bet.Enabled = true;
             btn_deal.Enabled = false;
@@ -271,7 +320,11 @@ namespace WinClient
             clearCardsImg(1);
             clearCardsImg(2);
         }
-
+        /// <summary>
+        /// Handle bet button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_bet_Click(object sender, EventArgs e)
         {
             int amount =0;
@@ -288,13 +341,21 @@ namespace WinClient
             txt_bet.Enabled = false;
 
         }
-
+        /// <summary>
+        /// handle hit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_hit_Click(object sender, EventArgs e)
         {
            new Thread(() =>  pipeProxy.hit(myID)).Start();
             
         }
-
+        /// <summary>
+        /// Hnadle stand button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stand_Click(object sender, EventArgs e)
         {
             new Thread(() => pipeProxy.stand(myID)).Start();
@@ -304,5 +365,5 @@ namespace WinClient
 
         
     }
-        #endregion
+       
 }
