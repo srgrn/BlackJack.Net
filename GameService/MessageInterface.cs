@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ServiceModel;
 
 namespace GameService
@@ -13,6 +10,11 @@ namespace GameService
     {
         [OperationContract(IsOneWay = true)]
         void OnMessageAdded(string message, DateTime timestamp);
+        [OperationContract(IsOneWay = true)]
+        void OnGetCard(int cardNum, int cardType, int playerID);
+        [OperationContract(IsOneWay = true)]
+        void onGameMessage(string message);
+
     }
 
     //This is a little different than the client 
@@ -26,5 +28,24 @@ namespace GameService
         bool Subscribe();
         [OperationContract]
         bool Unsubscribe();
+        [OperationContract]
+        int join(string username, int money, int numOfGames, int ID);
+        [OperationContract]
+        void leave(int player);
+        [OperationContract]
+        void deal();
+        [OperationContract]
+        void hit(int player);
+        [OperationContract]
+        void stand(int player);
+        [OperationContract]
+        void dealerPlay();
+        [OperationContract]
+        void resetGame();
+        [OperationContract]
+        void bust(int player);
+
+
+        
     }
 }

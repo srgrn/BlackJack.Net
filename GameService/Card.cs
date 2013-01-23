@@ -9,11 +9,13 @@ namespace GameService
     {
         public int CardNum;
         public int CardType;
+        public bool Down;
 
         public Card(int CardNum, int CardType)
         {
             this.CardNum = CardNum;
             this.CardType = CardType;
+            this.Down = false;
         }
     }
 }

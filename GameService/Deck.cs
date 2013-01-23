@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameService
 {
-    class Deck
+    public class Deck
     {
         // Deck Cards
         protected List<Card> cards = new List<Card>();

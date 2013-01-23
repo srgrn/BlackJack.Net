@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -94,6 +97,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,6 +147,61 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\Back.png" />
+    <Content Include="images\cl1.gif" />
+    <Content Include="images\cl10.gif" />
+    <Content Include="images\cl11.gif" />
+    <Content Include="images\cl12.gif" />
+    <Content Include="images\cl13.gif" />
+    <Content Include="images\cl2.gif" />
+    <Content Include="images\cl3.gif" />
+    <Content Include="images\cl4.gif" />
+    <Content Include="images\cl5.gif" />
+    <Content Include="images\cl6.gif" />
+    <Content Include="images\cl7.gif" />
+    <Content Include="images\cl8.gif" />
+    <Content Include="images\cl9.gif" />
+    <Content Include="images\di1.gif" />
+    <Content Include="images\di10.gif" />
+    <Content Include="images\di11.gif" />
+    <Content Include="images\di12.gif" />
+    <Content Include="images\di13.gif" />
+    <Content Include="images\di2.gif" />
+    <Content Include="images\di3.gif" />
+    <Content Include="images\di4.gif" />
+    <Content Include="images\di5.gif" />
+    <Content Include="images\di6.gif" />
+    <Content Include="images\di7.gif" />
+    <Content Include="images\di8.gif" />
+    <Content Include="images\di9.gif" />
+    <Content Include="images\he1.gif" />
+    <Content Include="images\he10.gif" />
+    <Content Include="images\he11.gif" />
+    <Content Include="images\he12.gif" />
+    <Content Include="images\he13.gif" />
+    <Content Include="images\he2.gif" />
+    <Content Include="images\he3.gif" />
+    <Content Include="images\he4.gif" />
+    <Content Include="images\he5.gif" />
+    <Content Include="images\he6.gif" />
+    <Content Include="images\he7.gif" />
+    <Content Include="images\he8.gif" />
+    <Content Include="images\he9.gif" />
+    <Content Include="images\sp1.gif" />
+    <Content Include="images\sp10.gif" />
+    <Content Include="images\sp11.gif" />
+    <Content Include="images\sp12.gif" />
+    <Content Include="images\sp13.gif" />
+    <Content Include="images\sp2.gif" />
+    <Content Include="images\sp3.gif" />
+    <Content Include="images\sp4.gif" />
+    <Content Include="images\sp5.gif" />
+    <Content Include="images\sp6.gif" />
+    <Content Include="images\sp7.gif" />
+    <Content Include="images\sp8.gif" />
+    <Content Include="images\sp9.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

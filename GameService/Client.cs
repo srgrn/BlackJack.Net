@@ -63,6 +63,17 @@ namespace GameService
         }
 
 
+
+
+        public void OnGetCard(int cardNum, int cardType, int playerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void onGameMessage(string message)
+        {
+            // should show game message
+        }
     }
 
 }

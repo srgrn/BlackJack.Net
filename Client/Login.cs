@@ -36,8 +36,13 @@ namespace WinClient
         {
             string username = txt_username.Text;
             string password = txt_password.Text;
-            new Thread( () => service.login(username,password)).Start();
+            //new Thread( () => service.login(username,password)).Start(); // seems there is some problem with the message being lost between the threads
             btn_login.Enabled = false;
+            me = service.loginWeb(username, password);
+            if (me == null)
+                rejected();
+            else
+                accepted();
             
         }
         private void accepted()
